@@ -1,0 +1,23 @@
+.main-nav {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap:wrap;
+}
+ul.main-nav {
+	margin:0 auto;
+}
+
+.logo_img {
+  width: 200px;
+  height: 70px;
+  cursor: pointer;
+}
+
+i {
+	cursor: pointer;
+	margin-left: 13%;
+	margin-top: 1.5%;
+	color: #0060ff;
+	font-size: 26px;
+}
+

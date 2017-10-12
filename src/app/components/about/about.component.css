@@ -1,0 +1,18 @@
+.flex-container {
+    height: 100%;
+font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1 {
+	color: #000dff;
+  	justify-content: center;
+  	text-align: center;
+  	background: #FDF3E7;
+}
+h3 {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}

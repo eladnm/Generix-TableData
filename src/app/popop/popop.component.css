@@ -1,0 +1,25 @@
+
+fieldset, select { 
+    overflow: hidden; 
+    width: 320px;
+}
+label { 
+	float: left; width: 300px;
+	color: #0060ff;
+	font-size: 20px;
+}
+
+input, select { 
+	width: 300px;
+	font-size: 20px;
+}
+button {
+	margin: 0 auto;
+	margin-top: 5%;
+    display: flex;
+    font-size: 20px;
+}
+h2 {
+	font-weight: bold;
+	color: #9700ff;
+}

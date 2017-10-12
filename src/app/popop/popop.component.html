@@ -1,0 +1,19 @@
+<h2>Person Details</h2>
+<fieldset>
+	<label for="name">Full Name:</label>
+	<input type="text" [(ngModel)]="data[0].name" maxlength="120">
+</fieldset>
+<fieldset>
+	<label for="id">ID:</label>
+	<input type="text" [(ngModel)]="data[0].id">
+</fieldset>
+<fieldset>
+	<label for="gender">Gender:</label>
+	<select [(ngModel)]="data[0].gender">
+  		<option value="Male">Male</option>
+  		<option value="Female">Female</option>
+	</select>
+
+</fieldset>
+<button (click)="Save()" (keypress)="eventHandler($event)">Save</button>
+

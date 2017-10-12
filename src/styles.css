@@ -1,0 +1,8 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* You can add global styles to this file, and also import other style files */
+.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper{
+	font-size: 16px;
+}

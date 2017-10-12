@@ -1,0 +1,57 @@
+<header>
+  <div class="main_header"> 
+      <input
+        type='text'
+        style='padding:8px;margin:15px auto;width:30%;'
+        placeholder='Type to filter the name column...'
+        (keyup)='updateFilter($event)'
+      />
+      <div class="search_button"></div>
+        <a href=""><img class="user_icon" src="https://www.onlinewebfonts.com/style/user.png" alt="user icon"/></a>
+        <a href=""><img class="message_icon" src="https://cdn3.iconfinder.com/data/icons/basicsiconic/512/alarm_alert_bell_notification_bulletin_ring_sound-512.png" alt="message"/></a>
+        <button class="fa fa-address-card fa-lg" (click)="OpenRowForNew()"> Add</button>
+  </div>
+</header>
+<body>
+          <a href="#" (click)="add()">Add</a> |
+          <a href="#" (click)="update()">Update</a> | 
+          <a href="#" (click)="remove()">Remove</a>
+      <div style='float:left;width:85%'>
+        <ngx-datatable
+          #table
+          style="width: 90%"
+          class="material"
+          [rows]="rows"
+          [columnMode]="'force'"
+          [headerHeight]="70"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [limit]="15"
+          [selected]="selected"
+          [selectionType]="'checkbox'"
+          (activate)="onActivate($event)"
+          (select)='onSelect($event)'>
+          <ngx-datatable-column
+            [width]="30"
+            [sortable]="false"
+            [canAutoResize]="false"
+            [draggable]="false"
+            [resizeable]="false"
+            [headerCheckboxable]="true"
+            [checkboxable]="true">
+          </ngx-datatable-column>
+        <ngx-datatable-column name="Name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="ID" [width]="80"></ngx-datatable-column>
+        <ngx-datatable-column name="Gender"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+     <div class='selected-column'>
+        <h4>Selections <small>({{selected?.length}})</small></h4>
+        <ul>
+          <li *ngFor='let sel of selected'>
+            {{sel.name}}
+          </li>
+          <li *ngIf="!selected?.length">No Selections</li>
+        </ul>
+      </div>
+</body>
