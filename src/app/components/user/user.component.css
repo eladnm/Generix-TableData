@@ -94,19 +94,10 @@ input[type=text] {
   width: 100%;
   border: none;
   border-bottom: 1px solid #5264AE;
-  width: 0;
 }
-textarea {
-  font-size: 14px;
-  font-family: sans-serif;
-  display: block;
-  background: transparent;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #5264AE;
-  resize: vertical;
+input {
+  margin-left: 0px !important;
 }
-
 input:focus {
   outline: none;
 }
@@ -128,7 +119,4 @@ a {
   right: 0;
   bottom: 0;
   width: 100%;
-}
-button, i {
-  margin-right: 30%;
 }

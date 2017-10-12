@@ -3,23 +3,25 @@
       <input
         type='text'
         style='padding:8px;margin:15px auto;width:30%;'
-        placeholder='Type to filter the name column...'
+        placeholder='Type to filter Name, ID or Gender column...'
         (keyup)='updateFilter($event)'
       />
       <div class="search_button"></div>
         <a href=""><img class="user_icon" src="https://www.onlinewebfonts.com/style/user.png" alt="user icon"/></a>
         <a href=""><img class="message_icon" src="https://cdn3.iconfinder.com/data/icons/basicsiconic/512/alarm_alert_bell_notification_bulletin_ring_sound-512.png" alt="message"/></a>
-        <button class="fa fa-address-card fa-lg" (click)="OpenRowForNew()"> Add</button>
+        <!-- <button class="fa fa-address-card fa-lg" (click)="OpenRowForNew()"> Add</button> -->
+        <!-- <button class="edit" (click)="OpenRowForEdit()"> Edit</button> -->
+
   </div>
 </header>
 <body>
-          <a href="#" (click)="add()">Add</a> |
-          <a href="#" (click)="update()">Update</a> | 
-          <a href="#" (click)="remove()">Remove</a>
+          <button (click)="OpenRowForNew()">Add</button>
+          <button (click)="OpenRowForEdit()">Update</button> 
+          <button href="#" (click)="remove()">Remove</button>
       <div style='float:left;width:85%'>
         <ngx-datatable
           #table
-          style="width: 90%"
+          style="width: 85%"
           class="material"
           [rows]="rows"
           [columnMode]="'force'"
@@ -29,7 +31,6 @@
           [limit]="15"
           [selected]="selected"
           [selectionType]="'checkbox'"
-          (activate)="onActivate($event)"
           (select)='onSelect($event)'>
           <ngx-datatable-column
             [width]="30"

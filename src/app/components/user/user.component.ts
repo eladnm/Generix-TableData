@@ -20,14 +20,10 @@ private temp:any;
     console.log('constructor ran..');
 
     this.rows = this.dataService.GetItem("data"); 
-      console.log(typeof(this.rows));
-      console.log(this.rows);
     if (this.rows==null) {
       this.dataService.GetJson().subscribe((result)=>
       {
-        this.rows=(JSON.parse(result['_body']));
-         console.log(this.rows);
-         console.log(typeof(this.rows));      
+        this.rows=(JSON.parse(result['_body']));    
       })
     }
     
@@ -38,64 +34,66 @@ private temp:any;
       ];
     
   }
-    onSelect({ selected }) {
+    onSelect({ selected }) {}
+   
+
+ 
+
+    remove() {
+
+    for (var i = 0; i < this.selected.length; ++i) {
+       this.rows=  this.rows.filter(x=>x.id!=this.selected[i].id);
+    }
+     
+     
+      this.dataService.AddItem("data",this.rows)
+    }
+   OpenRowForNew()
+   {
+
+     let x={
+       "name":null,
+       "id": null, 
+       "gender": null
+     }
+     
     
-       let dialogRef =  this.dialog.open(PopopComponent, {data: selected});
+     let dialogRef =  this.dialog.open(PopopComponent, {data: [x]});
+
+       dialogRef.afterClosed().subscribe(result => {
+       if (x.name != null && x.id != null && x.gender != null)
+       {
+          this.rows.push(x);
+          this.dataService.AddItem("data",this.rows)
+       } 
+      });
+   }
+   OpenRowForEdit()
+   {
+    
+       let dialogRef =  this.dialog.open(PopopComponent, {data: this.selected});
 
        dialogRef.afterClosed().subscribe(result => {
 
 
          this.dataService.AddItem("data",this.rows)
        });
-    }
-    onActivate(event) {
-      console.log('Activate Event', event);
-    }
 
-    add() {
-      this.selected.push(this.rows[0], this.rows[0]);
-    }
-
-    update() {
-      this.selected = [ this.rows[1], this.rows[3] ];
-    }
-
-    remove() {
-      this.dataService.DeleteItem("data",this.rows)
-    }
-   OpenRowForNew()
-   {
-
-     let x={
-       "name": "",
-       "id": "", 
-       "gender": ""
-     }
-
-    this.rows.push(x);
-     let dialogRef =  this.dialog.open(PopopComponent, {data: [x]});
-
-       dialogRef.afterClosed().subscribe(result => {
-
-
-         this.dataService.AddItem("data",this.rows)
-      });
    }
-     updateFilter(event) {
-    const val = event.target.value.toLowerCase();
 
-    // filter our data
-    const temp = this.temp.filter(function(d) {
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-    });
+     updateFilter(event) 
+     {
+       let DbRows:any;
+       let val = event.target.value.toLowerCase();
+       DbRows=this.dataService.GetItem("data"); 
 
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    //this.table.offset = 0;
+      this.rows= DbRows.filter(x=> 
+                   x.id.indexOf(val)>-1==true ||
+                   x.name.toLowerCase().indexOf(val)>-1==true ||
+                   x.gender.toLowerCase().indexOf(val)>-1==true
+                 )
   }
 
 }
-
 
 
