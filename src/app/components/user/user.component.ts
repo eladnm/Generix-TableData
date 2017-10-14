@@ -1,34 +1,18 @@
-import { Component, OnInit ,Inject, ViewChild} from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PopopComponent } from '../../popop/popop.component';
-import {DatatableComponent} from '@swimlane/ngx-datatable/src/components/datatable.component';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent  {
+export class UserComponent   {
 private rows:any;
-//private columns:any;
 private selected = [];
-private temp:any;
-  columns = [
-    { name: 'seq', comparator: this.seqComparator.bind(this) },
-    { name: 'name', sortable: false },
-    { name: 'gender', sortable: false },
-    { name: 'id', sortable: false }
-  ];
-    seqComparator(propA, propB) {
-    console.log('Sorting Comparator', propA, propB);
 
-    // Just a simple sort function comparisoins
-    if (propA.toLowerCase() < propB.toLowerCase()) return -1;
-    if (propA.toLowerCase() > propB.toLowerCase()) return 1;
-  }
-@ViewChild(PopopComponent) table: PopopComponent;
   constructor(private dataService:DataService, private dialog: MatDialog) {
-    console.log('constructor ran..');
 
     this.rows = this.dataService.GetItem("data"); 
     if (this.rows==null) {
@@ -39,11 +23,6 @@ private temp:any;
     }
     
   }
-
-
-  onSelect({ selected }) {}
-   
-
   remove() {
 
     for (var i = 0; i < this.selected.length; ++i) {
@@ -60,15 +39,13 @@ private temp:any;
        "id": null, 
        "gender": null,
        "date": new Date()
-     }
-     
-    
+     }         
      let dialogRef =  this.dialog.open(PopopComponent, {data: [x]});
 
        dialogRef.afterClosed().subscribe(result => {
        if (result!=null)
        {
-          this.rows.push(x);
+          this.rows.unshift(x);
           this.dataService.AddItem("data",this.rows)
        } 
       });
@@ -79,21 +56,23 @@ private temp:any;
       let ItemBeforEdit = Object.assign({}, this.selected[0]);
 
       
-      let dialogRef =  this.dialog.open(PopopComponent, {data: [ItemBeforEdit]});
+      let dialogRef =  this.dialog.open(PopopComponent, {data: [this.selected[0]]});
 
 
 
        dialogRef.afterClosed().subscribe(result => {
 
-       if (result!=null)
+       if (result==null)
        {
           this.selected[0]=ItemBeforEdit
-          this.dataService.AddItem("data",this.rows)
        } 
+       else{
+          
+       }
+         this.dataService.AddItem("data",this.rows)
 
        
        });
-
    }
 
   updateFilter(event) 
@@ -106,8 +85,7 @@ private temp:any;
                    x.name.toLowerCase().indexOf(val)>-1==true ||
                    x.gender.toLowerCase().indexOf(val)>-1==true
                  )
-  }
-
+  }  
 }
 
 

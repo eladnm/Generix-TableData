@@ -4,12 +4,11 @@ import {Observable} from 'rxjs/Rx';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+
 @Injectable()
 export class DataService {
 
-  constructor(public http:Http,private localStorageService: LocalStorageService) { 
-    console.log('Data service connected...');
-  }
+  constructor(public http:Http,private localStorageService: LocalStorageService) {}
 
 	AddItem(Key,Value)
 	{

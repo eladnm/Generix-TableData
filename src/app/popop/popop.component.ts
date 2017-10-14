@@ -10,9 +10,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class PopopComponent  {
 private text: string;
-constructor( public dialogRef: MatDialogRef<PopopComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { }
+constructor( public dialogRef: MatDialogRef<PopopComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { 
+
+
+
+}
   
   Save(event) {
+   
   this.dialogRef.close(this.data[0]);
   }
   closePop(event) {
