@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import {Observable} from 'rxjs/Rx';
-
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -15,6 +14,7 @@ export class DataService {
 	AddItem(Key,Value)
 	{
 		this.localStorageService.set(Key,Value);
+
 	}
 	DeleteItem (Key,Value)
 	{
@@ -30,6 +30,18 @@ export class DataService {
 		return  this.http.get('http://localhost:4200/assets/data.json')
 				.map((Response) => Response)
 	}
+
+	public clone(obj): any {
+    var cloneObj = new (<any>obj.constructor());
+    for (var attribut in obj) {
+        if (typeof obj[attribut] === "object") {
+            cloneObj[attribut] = obj.clone();
+        } else {
+            cloneObj[attribut] = obj[attribut];
+        }
+    }
+    return cloneObj;
+}
 
  }
 

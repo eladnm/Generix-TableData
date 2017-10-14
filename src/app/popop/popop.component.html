@@ -1,19 +1,41 @@
+<button id="closePopup" (click)="closePop()">X</button>
 <h2>Person Details</h2>
+<form (Submit)="submit()" #loginForm="ngForm">
 <fieldset>
 	<label for="name">Full Name:</label>
-	<input type="text" [(ngModel)]="data[0].name" maxlength="120">
+	<input type="text" (keyup)="replacerName(data[0].name)" [(ngModel)]="data[0].name" name="name" required
+   pattern="[a-zA-Z][a-zA-Z ]+"
+   maxlength="120"
+   #name="ngModel">
+   <div [hidden]="name.valid || name.pristine"
+      class="alert alert-danger">
+       <div [hidden]="!name.hasError('required')">Name is required</div>
+      <div [hidden]="!name.hasError('pattern')">Only alphabets are allowed</div>
+   </div>
 </fieldset>
 <fieldset>
 	<label for="id">ID:</label>
-	<input type="text" [(ngModel)]="data[0].id">
+	<input type="text" (keyup)="replacerID(data[0].id)" id="id"
+   required [(ngModel)]="data[0].id" name="id"
+	pattern="[0-9\-]*"
+   minlength="7	"
+   maxlength="20"
+   #id="ngModel">
+   <div [hidden]="id.valid || id.pristine"
+      class="alert alert-danger">
+      <div [hidden]="!id.hasError('minlength')">ID should be at least 7 digit</div>
+      <div [hidden]="!id.hasError('required')">ID is required</div>
+      <div [hidden]="!id.hasError('pattern')">ID number should be only numbers</div>
+   </div>
 </fieldset>
 <fieldset>
 	<label for="gender">Gender:</label>
-	<select [(ngModel)]="data[0].gender">
+	<select id="gender"
+   required #gender="ngModel" [(ngModel)]="data[0].gender" name="gender">
   		<option value="Male">Male</option>
   		<option value="Female">Female</option>
 	</select>
-
 </fieldset>
-<button (click)="Save()" (keypress)="eventHandler($event)">Save</button>
+</form>
+<button type="submit" class="btn btn-success btn-block" (click)="Save()" [disabled]="!loginForm.form.valid">Save</button>
 

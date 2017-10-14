@@ -26,6 +26,7 @@
     "@swimlane/ngx-datatable": "^10.2.3",
     "angular-2-local-storage": "^1.0.1",
     "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
     "rxjs": "^5.1.0",
     "typescript": "^2.5.3",
     "zone.js": "^0.8.4"

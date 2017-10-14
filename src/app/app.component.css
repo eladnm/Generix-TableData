@@ -6,13 +6,11 @@
 ul.main-nav {
 	margin:0 auto;
 }
-
 .logo_img {
   width: 200px;
   height: 70px;
   cursor: pointer;
 }
-
 i {
 	cursor: pointer;
 	margin-left: 13%;

@@ -9,23 +9,20 @@
       <div class="search_button"></div>
         <a href=""><img class="user_icon" src="https://www.onlinewebfonts.com/style/user.png" alt="user icon"/></a>
         <a href=""><img class="message_icon" src="https://cdn3.iconfinder.com/data/icons/basicsiconic/512/alarm_alert_bell_notification_bulletin_ring_sound-512.png" alt="message"/></a>
-        <!-- <button class="fa fa-address-card fa-lg" (click)="OpenRowForNew()"> Add</button> -->
-        <!-- <button class="edit" (click)="OpenRowForEdit()"> Edit</button> -->
-
   </div>
 </header>
 <body>
-          <button (click)="OpenRowForNew()">Add</button>
-          <button (click)="OpenRowForEdit()">Update</button> 
-          <button href="#" (click)="remove()">Remove</button>
-      <div style='float:left;width:85%'>
+          <button class="fa fa-address-card fa-lg" (click)="OpenRowForNew()"> Add</button>
+          <button class="fa fa-pencil-square-o fa-lg" (click)="OpenRowForEdit()"> Update</button> 
+          <button class="fa fa-times fa-lg" href="#" (click)="remove()"> Remove</button>
+      <div style='width:100%'>
         <ngx-datatable
           #table
-          style="width: 85%"
+          style="width: 100%"
           class="material"
           [rows]="rows"
           [columnMode]="'force'"
-          [headerHeight]="70"
+          [headerHeight]="60"
           [footerHeight]="50"
           [rowHeight]="'auto'"
           [limit]="15"
@@ -41,18 +38,10 @@
             [headerCheckboxable]="true"
             [checkboxable]="true">
           </ngx-datatable-column>
-        <ngx-datatable-column name="Name" [width]="200"></ngx-datatable-column>
-        <ngx-datatable-column name="ID" [width]="80"></ngx-datatable-column>
+        <ngx-datatable-column name="Seq" prop="seq" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Full Name" prop="name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Identity" prop="id" [width]="80"></ngx-datatable-column>
         <ngx-datatable-column name="Gender"></ngx-datatable-column>
       </ngx-datatable>
     </div>
-     <div class='selected-column'>
-        <h4>Selections <small>({{selected?.length}})</small></h4>
-        <ul>
-          <li *ngFor='let sel of selected'>
-            {{sel.name}}
-          </li>
-          <li *ngIf="!selected?.length">No Selections</li>
-        </ul>
-      </div>
 </body>

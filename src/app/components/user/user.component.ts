@@ -10,12 +10,23 @@ import {DatatableComponent} from '@swimlane/ngx-datatable/src/components/datatab
 })
 export class UserComponent  {
 private rows:any;
-private columns:any;
+//private columns:any;
 private selected = [];
 private temp:any;
+  columns = [
+    { name: 'seq', comparator: this.seqComparator.bind(this) },
+    { name: 'name', sortable: false },
+    { name: 'gender', sortable: false },
+    { name: 'id', sortable: false }
+  ];
+    seqComparator(propA, propB) {
+    console.log('Sorting Comparator', propA, propB);
 
+    // Just a simple sort function comparisoins
+    if (propA.toLowerCase() < propB.toLowerCase()) return -1;
+    if (propA.toLowerCase() > propB.toLowerCase()) return 1;
+  }
 @ViewChild(PopopComponent) table: PopopComponent;
-
   constructor(private dataService:DataService, private dialog: MatDialog) {
     console.log('constructor ran..');
 
@@ -27,67 +38,70 @@ private temp:any;
       })
     }
     
-     this.columns = [
-        { prop: 'name' },
-        { name: 'Id' },
-        { name: 'gender' }
-      ];
-    
   }
-    onSelect({ selected }) {}
+
+
+  onSelect({ selected }) {}
    
 
- 
-
-    remove() {
+  remove() {
 
     for (var i = 0; i < this.selected.length; ++i) {
-       this.rows=  this.rows.filter(x=>x.id!=this.selected[i].id);
+       this.rows =  this.rows.filter(x=>x.id!=this.selected[i].id);
     }
-     
-     
+        
       this.dataService.AddItem("data",this.rows)
     }
-   OpenRowForNew()
+  OpenRowForNew()
    {
-
-     let x={
-       "name":null,
+     let x ={
+       "seq": this.rows[this.rows.length-1].seq+1,
+       "name": null,
        "id": null, 
-       "gender": null
+       "gender": null,
+       "date": new Date()
      }
      
     
      let dialogRef =  this.dialog.open(PopopComponent, {data: [x]});
 
        dialogRef.afterClosed().subscribe(result => {
-       if (x.name != null && x.id != null && x.gender != null)
+       if (result!=null)
        {
           this.rows.push(x);
           this.dataService.AddItem("data",this.rows)
        } 
       });
    }
-   OpenRowForEdit()
+  OpenRowForEdit()
    {
-    
-       let dialogRef =  this.dialog.open(PopopComponent, {data: this.selected});
+   
+      let ItemBeforEdit = Object.assign({}, this.selected[0]);
+
+      
+      let dialogRef =  this.dialog.open(PopopComponent, {data: [ItemBeforEdit]});
+
+
 
        dialogRef.afterClosed().subscribe(result => {
 
+       if (result!=null)
+       {
+          this.selected[0]=ItemBeforEdit
+          this.dataService.AddItem("data",this.rows)
+       } 
 
-         this.dataService.AddItem("data",this.rows)
+       
        });
 
    }
 
-     updateFilter(event) 
+  updateFilter(event) 
      {
        let DbRows:any;
        let val = event.target.value.toLowerCase();
-       DbRows=this.dataService.GetItem("data"); 
-
-      this.rows= DbRows.filter(x=> 
+       DbRows = this.dataService.GetItem("data");
+      this.rows = DbRows.filter(x=> 
                    x.id.indexOf(val)>-1==true ||
                    x.name.toLowerCase().indexOf(val)>-1==true ||
                    x.gender.toLowerCase().indexOf(val)>-1==true
@@ -95,5 +109,6 @@ private temp:any;
   }
 
 }
+
 
 
